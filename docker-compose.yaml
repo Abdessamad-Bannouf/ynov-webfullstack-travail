@@ -1,0 +1,11 @@
+services:
+  express-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 4000:3000 # Mappe le port 3000 du conteneur au port 4000 de l'hôte
+    volumes:
+      - ./:/usr/src/app # Synchronise le dossier actuel avec le conteneur
+      - /usr/src/app/node_modules # Évite les conflits entre node_modules local et conteneurisé
+    command: npm run dev # Lance l'application en mode développement avec nodemon
