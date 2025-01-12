@@ -1,0 +1,56 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/task/update.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <div class="form-container">
+        <h2>Modifier la tâche</h2>
+        <form method="POST" action="/task/update/<%= task.id %>">
+            <input type="hidden" name="id"  value="<%= task.id %>" required>
+            <div class="form-group">
+                <label for="task-title">Titre de la Tâche</label>
+                <input type="text" id="task-title" name="title"  value="<%= task.title %>" placeholder="<%= task.title %>" required>
+            </div>
+            <!--<div class="form-group">
+                <label for="task-description">Description</label>
+                <textarea id="task-description" name="task-description" placeholder="Ajoutez une description" required></textarea>
+            </div>!-->
+            <!--<div class="form-group">
+                <label for="task-deadline">Date Limite</label>
+                <input type="date" id="task-deadline" name="task-deadline" required>
+            </div>!-->
+            <div class="form-group">
+                <label for="task-priority">Complété</label>
+                <select id="task-priority" name="isCompleted" required>
+                    <% if(task.isCompleted) { %>
+                            <option value="0">En cours</option>
+                            <option value="1" selected >Terminé</option>
+                            <% } else { %>
+                                    <option value="0" selected>En cours</option>
+                                    <option value="1"  >Terminé</option>
+                    <% } %>
+
+                </select>
+                <!--<select id="task-priority" name="task-priority" required>
+                    <option value="low">Basse</option>
+                    <option value="medium">Moyenne</option>
+                    <option value="high">Élevée</option>
+                </select>!-->
+            </div>
+            <div class="form-group">
+                <label for="task-title">Liste des tâches</label>
+                <select id="task-priority" name="taskListId" required>
+                    <% for (let tl of taskList) { %>
+                        <option value="<%= tl.id %>"><%= tl.name %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Modifier la Tâche</button>
+            </div>
+        </form>
+    </div>
+</main>
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,31 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/task/single.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+<main>
+    <% if (singleTask) { %>
+        <div class="grid">
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title"><%= singleTask.name %></h1>
+                </header>
+                <div class="card__image">
+                    <img src="/task/<%= singleTask.id %>"
+                         alt="<%= singleTask.id %>">
+                </div>
+                <div class="card__content">
+                    <h2 class="product__price">$<%= singleTask.name %></h2>
+                    <p class="product__description"><%= singleTask.name %></p>
+                </div>
+                <div class="card__actions">
+                    <a href="/products/<%= singleTask.id %>" class="btn">Details</a>
+                </div>
+            </article>
+        </div>
+    <% } else { %>
+        <h1>No Products Found!</h1>
+    <% } %>
+</main>

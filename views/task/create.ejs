@@ -1,0 +1,49 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/task/add.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <div class="form-container">
+        <h2>Ajouter une Tâche</h2>
+        <form method="POST" action="/task/add">
+            <div class="form-group">
+                <label for="task-title">Titre de la tâche</label>
+                <input type="text" id="task-title" name="title" placeholder="Entrez le titre de la tâche" required>
+            </div>
+            <!--<div class="form-group">
+                <label for="task-description">Description</label>
+                <textarea id="task-description" name="task-description" placeholder="Ajoutez une description" required></textarea>
+            </div>!-->
+            <!--<div class="form-group">
+                <label for="task-deadline">Date Limite</label>
+                <input type="date" id="task-deadline" name="task-deadline" required>
+            </div>!-->
+            <div class="form-group">
+                <label for="task-priority">Complété</label>
+                <select id="task-priority" name="isCompleted" required>
+                    <option value="0">En cours</option>
+                    <option value="1">Terminé</option>
+                </select>
+                <!--<select id="task-priority" name="task-priority" required>
+                    <option value="low">Basse</option>
+                    <option value="medium">Moyenne</option>
+                    <option value="high">Élevée</option>
+                </select>!-->
+            </div>
+            <div class="form-group">
+                <label for="task-title">Liste des tâches</label>
+                <select id="task-priority" name="taskListId" required>
+                    <% for (let tl of tasksLists) { %>
+                            <option value="<%= tl.id %>"><%= tl.name %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Ajouter la Tâche</button>
+            </div>
+        </form>
+    </div>
+</main>
+<%- include('../includes/end.ejs') %>
