@@ -1,0 +1,23 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/list/add.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <div class="form-container">
+        <h2>Modifier une liste</h2>
+        <form method="POST" action="/list/update/<%= list.id %>">
+            <div class="form-group">
+                <label for="task-title">Nom de la liste</label>
+                <input type="text" id="task-title" name="name" placeholder="Entrez le titre de la liste" required>
+            </div>
+            <input type="hidden" name="id" value="1" placeholder="Entrez le titre de la liste" required>
+
+            <div class="form-group">
+                <button type="submit">Modifier la liste de tâches</button>
+            </div>
+        </form>
+    </div>
+</main>
+<%- include('../includes/end.ejs') %>
