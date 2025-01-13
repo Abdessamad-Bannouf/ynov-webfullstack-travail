@@ -11,7 +11,7 @@ COPY . .
 
 # Étape 4 : Installer les dépendances
 
-RUN npm install nodemon ejs body-parser prisma @prisma/client jsonwebtoken bcrypt express-validator
+RUN npm install nodemon ejs body-parser prisma @prisma/client jsonwebtoken bcrypt bcryptjs express-validator express-session @quixo3/prisma-session-store csurf
 
 # Étape 5 : Copier le reste du code de l'application
 COPY . .
