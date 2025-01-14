@@ -6,13 +6,11 @@ const path = require("path");
 const prisma = require('./util/prisma');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store'); // Import corrigé
 const session = require('express-session'); // Assure-toi de l'importer
-//const csrf = require('csurf');
+const csrf = require('csurf');
 
 const express = require('express');
 const app = express();
 const port = 3000;
-
-//const csrfProtection = csrf();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -44,7 +42,28 @@ app.use(
     })
 );
 
-//app.use(csrfProtection);
+const csrfProtection = csrf();
+
+app.use(csrfProtection);
+
+app.use((req, res, next) => {
+    if (!req.session.user) {
+        return next();
+    }
+    prisma.user.findUnique({ where: { id: parseInt(req.session.user.id) } })
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch(err => console.log(err));
+});
+
+
+app.use( (req, res, next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 app.use('/task', taskRoutes);
 app.use('/list', listRoutes);

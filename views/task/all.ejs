@@ -18,6 +18,7 @@
                                 <button>Marqué comme terminé</button>
                                 <form method="POST" action="/task/delete">
                                     <input type="hidden" name="id" value="<%= task.id %>">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <button type="submit">Supprimer</button>
                                 </form>
 
