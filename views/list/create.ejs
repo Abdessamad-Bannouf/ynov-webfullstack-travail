@@ -14,7 +14,7 @@
             </div>
             <!-- TODO:  enlever le type hidden pour mettre la personne connecté une fois l'auth terminée !-->
             <input type="hidden" name="userId" value="1" placeholder="Entrez le titre de la tâche" required>
-
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-group">
                 <button type="submit">Ajouter la liste de tâches</button>
             </div>
