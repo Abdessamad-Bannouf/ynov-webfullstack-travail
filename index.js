@@ -1,16 +1,21 @@
 const listRoutes = require('./routes/list');
 const taskRoutes = require('./routes/task');
 const authRoutes = require('./routes/auth');
+const chatRoutes = require('./routes/chat');
 const bodyParser = require('body-parser');
 const path = require("path");
 const prisma = require('./util/prisma');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store'); // Import corrigé
 const session = require('express-session'); // Assure-toi de l'importer
 const csrf = require('csurf');
+const WebSocket = require('ws');
 
 const express = require('express');
 const app = express();
 const port = 3000;
+
+const server = require('http').createServer(app);
+//const wss = new WebSocket.Server({server: server});
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -67,6 +72,7 @@ app.use( (req, res, next) => {
 
 app.use('/task', taskRoutes);
 app.use('/list', listRoutes);
+app.use('/chat', chatRoutes);
 app.use(authRoutes);
 
 app.get('/', (req, res) => {
@@ -75,6 +81,42 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.listen(port, () => {
+let test = app.listen(port, '0.0.0.0', () => {
     console.log(`Example app listening on port ${port}`);
+});
+const wss = new WebSocket.Server({server: test});
+
+wss.on('connection', (ws) => {
+    console.log('New client connected');
+
+    ws.on('message', (message) => {
+        console.log('Message received:', message);
+    });
+
+    ws.on('close', () => {
+        console.log('Client disconnected');
+    });
+});
+
+wss.on('connection', (ws) => {
+    console.log('A new client connected !');
+    //ws.send('Welcome new client !');
+    ws.on('message', async (data) => {
+        //console.log('received %s', message);
+        const { sender, content } = JSON.parse(data);
+        // Enregistrer le message dans la base de données
+        const newMessage = await prisma.message.create({
+            data: { sender, content },
+        });
+
+        wss.clients.forEach((client) => {
+            if (client.readyState === client.OPEN) {
+                client.send(JSON.stringify(newMessage));
+            }
+        });
+        //ws.send('Got ur msg its:' + message);
+    });
+    ws.on('close', () => {
+        console.log('Client disconnected');
+    });
 });
