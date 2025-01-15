@@ -1,0 +1,55 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/chat/home.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+<h1>Chatbox</h1>
+    <div id="messages" style="border: 1px solid #ccc; height: 300px; overflow-y: scroll;"></div>
+    <input id="sender" placeholder="Your name" />
+    <input id="content" placeholder="Type a message" />
+    <button onclick="sendMessage()">Send</button>
+    <script>
+        let socket;
+
+        // Initialiser WebSocket
+        function initWebSocket() {
+            socket = new WebSocket('ws://localhost:3000');
+
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                addMessageToUI(message.sender, message.content);
+            };
+        }
+
+        function sendMessage() {
+            const sender = document.getElementById('sender').value;
+            const content = document.getElementById('content').value;
+
+            socket.send(JSON.stringify({ sender, content }));
+            //addMessageToUI('You', content);
+            document.getElementById('content').value = '';
+        }
+
+        function addMessageToUI(sender, content) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = `${sender}: ${content}`;
+            messagesDiv.appendChild(messageDiv);
+        }
+
+        // Charger les messages existants
+        async function loadMessages() {
+            const response = await fetch('/chat/messages');
+            const messages = await response.json();
+            messages.forEach((msg) => addMessageToUI(msg.sender, msg.content));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initWebSocket();
+            loadMessages();
+        });
+    </script>
+</main>
+<%- include('../includes/end.ejs') %>
