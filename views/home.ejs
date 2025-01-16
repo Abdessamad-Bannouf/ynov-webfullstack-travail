@@ -1,0 +1,32 @@
+<%- include('./includes/head.ejs') %>
+<link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+<%- include('./includes/navigation.ejs') %>
+<main>
+    <section class="hero">
+        <h1>Bienvenue sur TaskManager</h1>
+        <p>Collaborez, organisez et atteignez vos objectifs ensemble.</p>
+        <a href="/task" class="btn-primary">Voir vos tâches</a>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Fonctionnalités principales</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <h3>Gestion des tâches</h3>
+                <p>Créez, éditez et suivez vos tâches facilement.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Collaborations en équipe</h3>
+                <p>Travaillez avec votre équipe en temps réel.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Planification efficace</h3>
+                <p>Planifiez et suivez vos échéances grâce à notre outil intuitif.</p>
+            </div>
+        </div>
+    </section>
+</main>
+<%- include('./includes/end.ejs') %>
