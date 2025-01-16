@@ -73,13 +73,13 @@ exports.getUpdate = async (req, res, next) => {
         // TODO: Enlever la ligne d'en dessous lorsqu'on mettre en place l'authentication
         const singleList = await list.findById(id);
         //res.status(201).send("Liste créée avec succès !");
-
         res.render('list/update.ejs', {
             'list': singleList,
             pageTitle: 'Modification d\'une tâche',
             path: '/admin/add-product',
             editing: false,
-            'updateCSS': true
+            'updateCSS': true,
+            'userId': req.session.user.id
         });
 
     } catch (error) {
