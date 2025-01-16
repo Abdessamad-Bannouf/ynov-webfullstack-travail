@@ -29,7 +29,9 @@ exports.showAll = async(req,res) => {
             'tasks': tasks,
             'pageTitle': 'Toutes les tâches',
             'path': '/task/all',
-            'allSS': true
+            'allSS': true,
+            successMessage: req.flash('success'),
+            errorMessage: req.flash('error')
         });
     } catch (error) {
         console.error("Erreur lors de l'affichage de la tâche :", error);
@@ -83,7 +85,9 @@ exports.create = async (req,res) => {
     try {
         const tasks = await task.create({title: title, isCompleted: isCompleted, taskListId: taskListId});
         //res.status(200).send("Liste!");
-        res.redirect('/');
+        req.flash('success', 'Tâche créée avec succès ! ');
+
+        res.redirect('/task');
 
     } catch (error) {
         console.error("Erreur lors de la création de la tâche :", error);
@@ -128,7 +132,8 @@ exports.update = async (req,res) => {
 
     try {
         const tasks = await task.update(id,{title: title, isCompleted: isCompleted, taskListId: taskListId});
-        res.redirect('/');
+        req.flash('success', 'Tâche modifiée avec succès ! ');
+        res.redirect('/task');
         //res.status(200).send("Tâche!");
     } catch (error) {
         console.error("Erreur lors de la modification de la tâche :", error);
@@ -141,7 +146,8 @@ exports.delete = async (req,res) => {
 
     try {
         const tasks = await task.delete(id);
-        res.redirect('/');
+        req.flash('success', 'Tâche supprimée avec succès ! ');
+        res.redirect('/task');
         //res.status(200).send("Tâche!");
     } catch (error) {
         console.error("Erreur lors de la suppression de la tâche :", error);

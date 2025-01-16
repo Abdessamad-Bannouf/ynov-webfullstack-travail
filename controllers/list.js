@@ -10,7 +10,9 @@ exports.showAll = async (req,res) => {
             'lists': lists,
             'pageTitle': 'Toutes les listes',
             'path': '/list',
-            'listCSS': true
+            'listCSS': true,
+            successMessage: req.flash('success'),
+            errorMessage: req.flash('error')
         });
     } catch (error) {
         console.error("Erreur lors de l'affichage de la liste :", error);
@@ -54,7 +56,9 @@ exports.create = async (req,res) => {
         // TODO: Enlever la ligne d'en dessous lorsqu'on mettre en place l'authentication
         const lists = await list.create({name: name, userId: userId});
         //res.status(201).send("Liste créée avec succès !");
-        res.redirect('/');
+        req.flash('success', 'Liste créée avec succès ! ');
+
+        res.redirect('/list');
 
     } catch (error) {
         console.error("Erreur lors de la création de la liste :", error);
@@ -90,8 +94,9 @@ exports.update = async (req,res) => {
 
     try {
         const singleList = await list.update(id, {name: name});
-        //res.status(201).send("Liste créée avec succès !");
-        res.redirect('/');
+        //res.status(201).send("Liste modifiée avec succès !");
+        req.flash('success', 'Liste modifiée avec succès ! ');
+        res.redirect('/list');
     } catch (error) {
         console.error("Erreur lors de la modification de la liste :", error);
         //res.status(500).send("Erreur serveur");
@@ -103,8 +108,9 @@ exports.delete = async (req,res) => {
 
     try {
         const lists = await list.delete(id);
-        //res.status(200).send("Liste supprimé !");
-        res.redirect('/');
+        //res.status(200).send("Liste supprimé avec succès !");
+        req.flash('success', 'Liste supprimée avec succès ! ');
+        res.redirect('/list');
     } catch (error) {
         console.error("Erreur lors de la suppression de la liste :", error);
         //res.status(500).send("Erreur serveur");
