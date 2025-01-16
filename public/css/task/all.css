@@ -1,7 +1,11 @@
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
 }
 
 .container {
@@ -43,7 +47,7 @@
 .card .actions {
     margin-top: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 10px;
 }
 
