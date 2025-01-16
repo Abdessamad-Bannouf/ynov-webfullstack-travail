@@ -30,7 +30,11 @@
                             <!--<p>Description of the task. This can be a short summary of what needs to be done.</p>
                             <p class="meta">Assigned to: John Doe</p>!-->
                             <div class="actions">
-                                <button>Marqué comme terminé</button>
+                                <!--<button>Marqué comme terminé</button>!-->
+                                <form method="GET" action="/task/update/<%= task.id %>">
+                                    <input type="hidden" name="id" value="<%= task.id %>">
+                                    <button type="submit">Modifier</button>
+                                </form>
                                 <form method="POST" action="/task/delete">
                                     <input type="hidden" name="id" value="<%= task.id %>">
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
