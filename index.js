@@ -2,6 +2,8 @@ const listRoutes = require('./routes/list');
 const taskRoutes = require('./routes/task');
 const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
+const homeRoutes = require('./routes/home');
+
 const errorController = require('./controllers/error');
 const bodyParser = require('body-parser');
 const path = require("path");
@@ -74,9 +76,10 @@ app.use( (req, res, next) => {
 app.use('/task', taskRoutes);
 app.use('/list', listRoutes);
 app.use('/chat', chatRoutes);
+app.use(authRoutes);
+app.use('/', homeRoutes)
 app.use(errorController.get404);
 
-app.use(authRoutes);
 
 app.get('/', (req, res) => {
     req.session.views = (req.session.views || 0) + 1;
