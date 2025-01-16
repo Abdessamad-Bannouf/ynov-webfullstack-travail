@@ -6,7 +6,9 @@ exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/auth',
         pageTitle: 'Login',
-        isAuthenticated: false
+        isAuthenticated: false,
+        successMessage: req.flash('success'),
+        errorMessage: req.flash('error')
     });
 };
 
@@ -14,7 +16,9 @@ exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Signup',
-        isAuthenticated: false
+        isAuthenticated: false,
+        successMessage: req.flash('success'),
+        errorMessage: req.flash('error')
     });
 };
 
@@ -36,15 +40,18 @@ exports.postLogin = (req, res, next) => {
                             if (err) {
                                 console.log(err);
                             }
+                            req.flash('success', 'Connexion  réussie ! ');
                             res.redirect('/');
                         });
                     }
                     // Mauvais mot de passe
+                    req.flash('error', 'Mauvais mot de passe ! ');
                     res.redirect('/login');
                 });
         })
         .catch(err => {
             console.log(err);
+            req.flash('error', 'Le mail n\'existe pas ! ');
             res.redirect('/login');
         });
 };
@@ -60,16 +67,18 @@ exports.postSignup = (req, res) => {
     user.findByEmail(email).then(userMail => {
         if(isConfirmPassword === true) {
             if (userMail) {
+                req.flash('error', 'Le mail existe déjà ! ');
                 return res.redirect('/signup');
             }
             return bcrypt.hash(password, 12).then(hashedPassword => {
                 console.log(hashedPassword);
                 user.create({email: email, password: hashedPassword, createdAt: date, role: 'user'});
-
+                req.flash('success', 'Inscription réussie ! ');
             }).then(exist => {
                 return res.redirect('/login');
             });
         } else {
+            req.flash('error', 'Le mot de passe doit être identique ! ');
             return res.redirect('/signup');
         }
     }).catch(err => {

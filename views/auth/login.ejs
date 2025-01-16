@@ -7,6 +7,21 @@
    <%- include('../includes/navigation.ejs') %>
 
     <main>
+        <% if (typeof successMessage !== 'undefined') {
+            if(successMessage.length > 0) { %>
+                <div class="flash success">
+                    <%= successMessage[0] %>
+                </div>
+            <% } %>
+        <% } %>
+
+        <% if (typeof errorMessage !== 'undefined') {
+            if(errorMessage.length > 0) { %>
+                <div class="flash error">
+                    <%= errorMessage[0] %>
+                </div>
+            <% } %>
+        <% } %>
         <form class="login-form" action="/login" method="POST">
             <div class="form-control">
                 <label for="email">E-Mail</label>

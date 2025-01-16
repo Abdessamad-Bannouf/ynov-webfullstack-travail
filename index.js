@@ -5,6 +5,7 @@ const chatRoutes = require('./routes/chat');
 const homeRoutes = require('./routes/home');
 
 const errorController = require('./controllers/error');
+
 const bodyParser = require('body-parser');
 const path = require("path");
 const prisma = require('./util/prisma');
@@ -12,6 +13,7 @@ const { PrismaSessionStore } = require('@quixo3/prisma-session-store'); // Impor
 const session = require('express-session'); // Assure-toi de l'importer
 const csrf = require('csurf');
 const WebSocket = require('ws');
+const flash = require('connect-flash');
 
 const express = require('express');
 const app = express();
@@ -49,6 +51,8 @@ app.use(
         },
     })
 );
+
+app.use(flash());
 
 const csrfProtection = csrf();
 
