@@ -1,5 +1,7 @@
 const list = require('../models/list');
 
+const { validationResult } = require('express-validator');
+
 exports.showAll = async (req,res) => {
 
     try {
@@ -49,6 +51,14 @@ exports.getCreate = (req, res, next) => {
 };
 
 exports.create = async (req,res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        // Stocker les erreurs dans des flash messages
+        req.flash('error', errors.array().map(err => err.msg));
+        return res.redirect('/list');
+    }
+
     const name = req.body.name;
     const userId = parseInt(req.body.userId);
 
@@ -89,6 +99,14 @@ exports.getUpdate = async (req, res, next) => {
 };
 
 exports.update = async (req,res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        // Stocker les erreurs dans des flash messages
+        req.flash('error', errors.array().map(err => err.msg));
+        return res.redirect('/task');
+    }
+
     const id = parseInt(req.body.id);
     const name = req.body.name;
 

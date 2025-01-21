@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const user = require('../models/user');
 const bcrypt = require('bcryptjs')
+const {validationResult} = require("express-validator");
 
 exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
@@ -23,6 +24,14 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        // Stocker les erreurs dans des flash messages
+        req.flash('error', errors.array().map(err => err.msg));
+        return res.redirect('/login');
+    }
+
     const email = req.body.email;
     const password = req.body.password;
 
@@ -58,6 +67,14 @@ exports.postLogin = (req, res, next) => {
 
 
 exports.postSignup = (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        // Stocker les erreurs dans des flash messages
+        req.flash('error', errors.array().map(err => err.msg));
+        return res.redirect('/signup');
+    }
+
     const email = req.body.email;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
