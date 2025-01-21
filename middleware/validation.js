@@ -10,9 +10,6 @@ const validation = {
         body('password')
             .isLength({min: 4})
             .withMessage('Le mot de passe doit contenir au moins 4 caractères.'),
-        body('confirmPassword')
-            .isLength({min: 4})
-            .withMessage('Le mot de passe doit contenir au moins 4 caractères.'),
     ],
 
 
