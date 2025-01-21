@@ -10,7 +10,7 @@
         <form method="POST" action="/list/update/<%= list.id %>">
             <div class="form-group">
                 <label for="task-title">Nom de la liste</label>
-                <input type="text" id="task-title" name="name" placeholder="Entrez le titre de la liste" required>
+                <input type="text" id="task-title" name="name" value="<%= list.name %>" placeholder="Entrez le titre de la liste" required>
             </div>
             <input type="hidden" name="id" value="<%= userId %>" placeholder="Entrez le titre de la liste" required>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
