@@ -6,13 +6,15 @@ const isAuth = require('../middleware/is-auth');
 
 const checkRole = require('../middleware/check-role');
 
+const validation = require('../middleware/validation');
+
 const router = express.Router();
 
 router.get('/add',isAuth, checkRole('admin'), listController.getCreate);
-router.post('/add',isAuth, checkRole('admin'), listController.create);
+router.post('/add',isAuth, checkRole('admin'), validation('list'), listController.create);
 
 router.get('/update/:id', isAuth, checkRole('admin'), listController.getUpdate);
-router.post('/update/:id', isAuth, checkRole('admin'), listController.update);
+router.post('/update/:id', isAuth, checkRole('admin'), validation('list'), listController.update);
 
 router.post('/delete', isAuth, checkRole('admin'), listController.delete);
 
