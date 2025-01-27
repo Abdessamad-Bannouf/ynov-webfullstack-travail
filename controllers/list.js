@@ -46,7 +46,8 @@ exports.getCreate = (req, res, next) => {
         'pageTitle': 'Ajout d\'une liste',
         'path': '/list/create',
         'editing': false,
-        'addCSS': true
+        'addCSS': true,
+        'userId': req.session.user.id
     });
 };
 
