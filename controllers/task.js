@@ -66,7 +66,8 @@ exports.getCreate = (req, res, next) => {
                 pageTitle: 'Ajout d\'une tâche',
                 path: '/admin/add-product',
                 editing: false,
-                'listCSS': true
+                'listCSS': true,
+                'userId': req.session.user.id
             });
         })
     .catch(err => console.log(err));
@@ -91,9 +92,10 @@ exports.create = async (req,res) => {
         isCompleted = true;
 
     const taskListId = parseInt(req.body.taskListId);
+    const userId = parseInt(req.body.userId);
 
     try {
-        const tasks = await task.create({title: title, isCompleted: isCompleted, taskListId: taskListId});
+        const tasks = await task.create({title: title, isCompleted: isCompleted, taskListId: taskListId, userId: userId});
         //res.status(200).send("Liste!");
         req.flash('success', 'Tâche créée avec succès ! ');
 
@@ -120,7 +122,8 @@ exports.getUpdate = async (req, res) => {
             pageTitle: 'Modification d\'une tâche',
             path: '/admin/add-product',
             editing: false,
-            'updateCSS': true
+            'updateCSS': true,
+            'userId': req.session.user.id
         });
     })
         .catch(err => console.log(err));

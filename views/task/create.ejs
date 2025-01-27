@@ -40,6 +40,7 @@
                     <% } %>
                 </select>
             </div>
+            <input type="hidden" name="userId" value="<%= userId %>" placeholder="Entrez le titre de la liste" required>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-group">
                 <button type="submit">Ajouter la Tâche</button>
