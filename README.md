@@ -19,7 +19,11 @@ PGADMIN_DEFAULT_EMAIL=admin@domain.com
 ```
 
 ### Créer un autre .env mais cette fois-ci à la racine du projet (primordial pour que Prisma s'exécute correctement)
-- Copier cette ligne avec les bonnes valeurs : DATABASE_URL="postgresql://username:password@host:5432/db?schema=public"
+- Copier cette ligne avec les bonnes valeurs :
+
+```
+DATABASE_URL="postgresql://username:password@host:5432/db?schema=public"
+```
 
 ### - Créer un fichier "db_password.txt" à la racine du projet.
 
@@ -94,37 +98,36 @@ Ensuite sur l'interface pgAdmin cliquer sur Add New Server
 
 ## 📂 Structure du projet
 
-project/
-├── controllers/
-│    ├── auth.js
-│    ├── chat.js
-│    ├── error.js
-│    ├── home.js
-│    ├── list.js
-│    └── task.js
-├── middlewares/
-│   └── check-role.js
-│   └── is-auth.js
-│    └── validation.js
-├── routes/
-│   ├── auth.js
-│   ├── chat.js
-│   ├── home.js
-│   ├── list.js
-│   └── task.js
-│
-├── views/
-│   ├── auth.ejs
-│   ├── chat.ejs
-│   ├── includes.ejs
-│   ├── list.ejs
-│   └── task.ejs
-├── 404.ejs
-├── home.ejs
-├── app.js
-└── package.json
-├──- index.js : Point d'entrée principal de l'application Express.js.
-- package.json et package-lock.json : Fichiers Node.js pour gérer les dépendances.
+>&nbsp; project/ \
+&nbsp; &nbsp; &nbsp; ├── controllers/ \
+&nbsp; &nbsp; &nbsp; │    ├── auth.js \
+&nbsp; &nbsp; &nbsp; │    ├── chat.js \
+&nbsp; &nbsp; &nbsp; │    ├── error.js \
+&nbsp; &nbsp; &nbsp; │    ├── home.js \
+&nbsp; &nbsp; &nbsp; │    ├── list.js \
+&nbsp; &nbsp; &nbsp; │    └── task.js \
+&nbsp; &nbsp; &nbsp; ├── middlewares/ \
+&nbsp; &nbsp; &nbsp; │   └── check-role.js \
+&nbsp; &nbsp; &nbsp; │   └── is-auth.js \
+&nbsp; &nbsp; &nbsp; │    └── validation.js \
+&nbsp; &nbsp; &nbsp; ├── routes/ \
+&nbsp; &nbsp; &nbsp; │   ├── auth.js \
+&nbsp; &nbsp; &nbsp; │   ├── chat.js \
+&nbsp; &nbsp; &nbsp; │   ├── home.js \
+&nbsp; &nbsp; &nbsp; │   ├── list.js \
+&nbsp; &nbsp; &nbsp; │   └── task.js \
+&nbsp; &nbsp; &nbsp; ├── views/ \
+&nbsp; &nbsp; &nbsp; │   ├── auth.ejs \
+&nbsp; &nbsp; &nbsp; │   ├── chat.ejs \
+&nbsp; &nbsp; &nbsp; │   ├── includes.ejs \
+&nbsp; &nbsp; &nbsp; │   ├── list.ejs \
+&nbsp; &nbsp; &nbsp; │   └── task.ejs \
+&nbsp; &nbsp; &nbsp; ├── 404.ejs \
+&nbsp; &nbsp; &nbsp; ├── home.ejs \
+&nbsp; &nbsp; &nbsp; ├── app.js \
+&nbsp; &nbsp; &nbsp; └── package.json \
+&nbsp; &nbsp; &nbsp; ├──- index.js : Point d'entrée principal de l'application Express.js. \
+- package.json et package-lock.json : Fichiers Node.js pour gérer les dépendances. \
 
 \
 
