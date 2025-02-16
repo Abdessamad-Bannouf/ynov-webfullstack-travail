@@ -86,7 +86,7 @@ exports.getUpdate = async (req, res, next) => {
         //res.status(201).send("Liste créée avec succès !");
         res.render('list/update.ejs', {
             'list': singleList,
-            pageTitle: 'Modification d\'une tâche',
+            pageTitle: 'Modification d\'une liste',
             path: '/admin/add-product',
             editing: false,
             'updateCSS': true,
@@ -110,9 +110,10 @@ exports.update = async (req,res) => {
 
     const id = parseInt(req.body.id);
     const name = req.body.name;
+    const userId = parseInt(req.body.userid);
 
     try {
-        const singleList = await list.update(id, {name: name});
+        const singleList = await list.update(id, {name: name, userId: userId});
         //res.status(201).send("Liste modifiée avec succès !");
         req.flash('success', 'Liste modifiée avec succès ! ');
         res.redirect('/list');
